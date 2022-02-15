@@ -81,10 +81,18 @@ export const updateProductById = async (req, res) => {
 
 export const updateProducts = async (req, res) => {
   try {
-    console.log(req.body)
-    const result = await products.findByIdAndUpdate(req.body.id, req.body.sell, { new: true })
-    console.log(result)
+    const result = await products.findByIdAndUpdate(req.body.id, {sell: req.body.sell}, { new: true })
     res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
+
+export const deleteProduct =async (req,res)=>{
+  try {
+    console.log(req.params.id);
+    const result = await products.findByIdAndDelete(req.params.id)
+    res.status(200).send({ success: true, message: '',result })
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }

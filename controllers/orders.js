@@ -3,6 +3,10 @@ import users from '../models/users.js'
 
 export const checkout = async (req, res) => {
   try {
+    if(req.user.cart.length===0){
+      res.status(400).send({success:false,message:'購物車是空的'})
+      return
+    }
     const hasNotSell = await users.aggregate([
       {
         $match: {
@@ -28,7 +32,7 @@ export const checkout = async (req, res) => {
         }
       }
     ])
-    if (hasNotSell) {
+    if (hasNotSell.length>0) {
       res.status(400).send({ success: false, message: '包含下架產品' })
       return
     }
@@ -47,8 +51,18 @@ export const checkout = async (req, res) => {
 }
 
 export const getMyOrders = async (req, res) => {
-
+  try {
+    const result = await orders.find({user:req.user._id}).populate('products.product')
+    res.status(200).send({ success: false, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
 }
 export const getAllOrders = async (req, res) => {
-
+  try {
+    const result = await orders.find().populate('user','email').populate('products.product')
+    res.status(200).send({ success: false, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
 }

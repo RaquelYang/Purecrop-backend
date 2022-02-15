@@ -5,6 +5,7 @@ import cors from 'cors'
 import usersRouter from './routes/users.js'
 import adminsRouter from './routes/admins.js'
 import productsRouter from './routes/products.js'
+import ordersRouter from './routes/orders.js'
 
 mongoose.connect(process.env.DB_URL, () => {
   console.log('MongoDB conntected')
@@ -38,6 +39,7 @@ app.use((_, req, res, next) => {
 app.use('/users', usersRouter)
 app.use('/admins', adminsRouter)
 app.use('/products', productsRouter)
+app.use('/orders', ordersRouter)
 
 // 所有錯誤
 app.all('*', (req, res) => {
