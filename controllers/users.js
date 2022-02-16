@@ -75,6 +75,7 @@ export const getUserInfo = async (req, res) => {
 }
 export const addCart = async (req, res) => {
   try {
+    console.log(req.user.cart)
     const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
     if (idx > -1) {
       req.user.cart[idx].quantity += req.body.quantity
@@ -109,14 +110,17 @@ export const getCart = async (req, res) => {
 }
 export const updateCart = async (req, res) => {
   try {
+    console.log(req.body);
     if (req.body.quantity === 0) {
+      console.log(req);
+      console.log('1');
       // await users.findByIdAndUpdate(req.user._id, { $pull: { cart: { product: req.body.product } } })
       const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
       if (idx > -1) {
         req.user.cart.splice(idx, 1)
       }
       await req.user.save()
-      res.status(200).send({ success: true, message: '' })
+      res.status(200).send({ success: true, message: '',idx })
     } else {
       // await users.findOneAndUpdate(
       //   { _id: req.user._id, 'cart.product': req.body.product },
