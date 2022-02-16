@@ -18,6 +18,20 @@ const userSchema = new mongoose.Schema({
       message: '信箱格式不正確'
     }
   },
+  address:{
+    type: String,
+    default: ''
+  },
+  phone:{
+    type: Number,
+    default:0,
+    validator: {
+      validator(phone) {
+        if (phone.length === 0) return true
+        return validator.isMobilePhone(phone, 'zh-TW')
+      }
+    }
+  },
   tokens: {
     type: [String]
   },
