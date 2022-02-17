@@ -37,7 +37,9 @@ export const checkout = async (req, res) => {
       return
     }
     console.log(req.body);
-    const result = await orders.create({ user: req.user._id,orderinfo:req.body.orderinfo, products: req.user.cart })
+    const result = await orders.create(
+      { user: req.user._id, products: req.user.cart,name:req.body.name,message:req.body.message,address:req.body.address,phone:req.body.phone,pay:req.body.pay }
+      )
     req.user.cart = []
     await req.user.save()
     res.status(200).send({ success: false, message: '', result: result._id })
@@ -64,6 +66,16 @@ export const getAllOrders = async (req, res) => {
     const result = await orders.find().populate('user','email').populate('products.product')
     res.status(200).send({ success: false, message: '', result })
   } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
+export const updateState = async(req,res)=>{
+  try {
+    console.log(req.body);
+    const result = await orders.findByIdAndUpdate(req.body.id, {state: req.body.state}, { new: true })
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    console.log(error);
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }

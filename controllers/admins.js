@@ -40,10 +40,11 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    req.admin.tokens = req.admin.tokens.filter(token => token !== req.token)
+    req.user.tokens = req.user.tokens.filter(token => token !== req.token)
     await req.user.save()
     res.status(200).send({ success: true, message: '' })
   } catch (error) {
+    console.log(error);
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }

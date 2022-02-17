@@ -5,7 +5,8 @@ import authadmin from '../middleware/authadmin.js'
 import {
   checkout,
   getMyOrders,
-  getAllOrders
+  getAllOrders,
+  updateState
 } from '../controllers/orders.js'
 
 const router = express.Router()
@@ -13,5 +14,5 @@ const router = express.Router()
 router.post('/', auth, content('application/json'), checkout)
 router.get('/me', auth, getMyOrders)
 router.get('/all', authadmin, getAllOrders)
-
+router.post('/update', authadmin, updateState)
 export default router

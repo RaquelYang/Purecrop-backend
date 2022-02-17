@@ -21,22 +21,24 @@ const orderSchema = new mongoose.Schema({
       }
     ]
   },
-  orderinfo:{
-    ordername:{
+    name:{
+      type: String,
+      default: '',
+      required: [true, '缺少購買人名稱']
+    },
+    message:{
       type: String,
       default: ''
     },
-    ordermessage:{
+    address:{
       type: String,
-      default: ''
+      default: '',
+      required: [true, '缺少購買人地址']
     },
-    orderaddress:{
-      type: String,
-      default: ''
-    },
-    orderphone:{
+    phone:{
       type: Number,
       default:0,
+      required: [true, '缺少購買人電話'],
       validator: {
         validator(phone) {
           if (phone.length === 0) return true
@@ -44,12 +46,19 @@ const orderSchema = new mongoose.Schema({
         }
       }
     },
-    orderpay: {
+    state: {
       type: String,
+      enum: {
+        values: ['待發貨', '待收貨', '已出貨', '已結單']
+      },
+      default:'待發貨'
+    },
+    pay:{
+      type: String,
+      required: [true, '缺少付款方式'],
       enum: {
         values: [ '信用卡/金融卡','貨到付款']
       }
-    },  
   },
   date: {
     type: Date,
