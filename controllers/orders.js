@@ -44,6 +44,7 @@ export const checkout = async (req, res) => {
     await req.user.save()
     res.status(200).send({ success: false, message: '', result: result._id })
   } catch (error) {
+    console.log(error)
     if (error.name === 'ValidationError') {
       const key = Object.keys(error.errors)[0]
       res.status(400).send({ success: false, message: error.errors[key].message })
