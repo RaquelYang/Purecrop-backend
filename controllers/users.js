@@ -75,7 +75,6 @@ export const getUserInfo = async (req, res) => {
 }
 export const addCart = async (req, res) => {
   try {
-    console.log(req.user.cart)
     const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
     if (idx > -1) {
       req.user.cart[idx].quantity += req.body.quantity

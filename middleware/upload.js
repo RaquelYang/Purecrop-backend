@@ -25,6 +25,7 @@ const upload = multer({
 export default async (req, res, next) => {
   upload.single('image')(req, res, async error => {
     if (error instanceof multer.MulterError) {
+      console.log(error);
       let message = '上傳錯誤'
       if (error.code === 'LIMIT_FILE_SIZE') {
         message = '檔案太大'
@@ -33,6 +34,7 @@ export default async (req, res, next) => {
       }
       res.status(400).send({ success: false, message })
     } else if (error) {
+      console.log(error);
       res.status(500).send({ success: false, message: '伺服器錯誤' })
     } else {
       next()

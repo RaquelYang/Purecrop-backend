@@ -18,7 +18,6 @@ export default async (req, res, next) => {
       throw new Error()
     }
   } catch (error) {
-    console.log(error);
     res.status(401).send({ success: false, message: '驗證錯誤' })
   }
 }
