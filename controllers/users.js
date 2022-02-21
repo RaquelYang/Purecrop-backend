@@ -69,7 +69,6 @@ export const getUserInfo = async (req, res) => {
     result.cart = result.cart.length
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    console.log(error)
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
@@ -109,10 +108,7 @@ export const getCart = async (req, res) => {
 }
 export const updateCart = async (req, res) => {
   try {
-    console.log(req.body);
     if (req.body.quantity === 0) {
-      console.log(req);
-      console.log('1');
       // await users.findByIdAndUpdate(req.user._id, { $pull: { cart: { product: req.body.product } } })
       const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
       if (idx > -1) {
@@ -133,7 +129,6 @@ export const updateCart = async (req, res) => {
       res.status(200).send({ success: true, message: '' })
     }
   } catch (error) {
-    console.log(error)
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
