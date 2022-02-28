@@ -89,7 +89,6 @@ export const updateProducts = async (req, res) => {
 
 export const deleteProduct =async (req,res)=>{
   try {
-    console.log(req.params.id);
     const result = await products.findByIdAndDelete(req.params.id)
     res.status(200).send({ success: true, message: '',result })
   } catch (error) {

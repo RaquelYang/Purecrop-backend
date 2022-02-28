@@ -30,10 +30,8 @@ export const getImages = async (req, res) => {
 export const deletePorductImage = async (req, res) => {
   try {
     const result = await images.findByIdAndUpdate('6211af30444aa392e2d79087',{$pull:{productswiper:{_id:req.params.id}}})
-    console.log(result);
     res.status(200).send({ success: true, message: '',result })
   } catch (error) {
-    console.log(error);
     res.status(500).send({ sucess: false, message: '伺服器錯誤' })
   }
 }
@@ -58,7 +56,6 @@ export const deleteNewsImage = async(req,res)=>{
     const result = await images.findByIdAndUpdate('6211af30444aa392e2d79087',{$pull:{newsswiper:{_id:req.params.id}}})
     res.status(200).send({ success: true, message: '',result })
   } catch (error) {
-    console.log(error);
     res.status(500).send({ sucess: false, message: '伺服器錯誤' })
   }
 }
