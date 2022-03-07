@@ -1,19 +1,27 @@
 import mongoose from 'mongoose'
 
 const newsSchema = new mongoose.Schema({
-  title: {
+  name: {
     type: String,
-    required: [true, '標題不能為空']
+    required: [true, '標題不能為空'],
+    default:''
   },
-  description: {
+  content: {
     type: String,
-    required: [true, '內文不能為空']
+    required: [true, '內文不能為空'],
+    default:''
   },
   notice: {
-    type: String
+    type: String,
+    default:''
   },
   image: {
-    type: String
+    type: String,
+    default:''
+  },
+  show:{
+    type:Boolean,
+    default:false
   },
   date: {
     type: Date,

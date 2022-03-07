@@ -6,6 +6,7 @@ import usersRouter from './routes/users.js'
 import adminsRouter from './routes/admins.js'
 import productsRouter from './routes/products.js'
 import ordersRouter from './routes/orders.js'
+import newsRouter from './routes/news.js'
 import imagesRouter from './routes/images.js'
 
 mongoose.connect(process.env.DB_URL, () => {
@@ -41,6 +42,7 @@ app.use('/users', usersRouter)
 app.use('/admins', adminsRouter)
 app.use('/products', productsRouter)
 app.use('/orders', ordersRouter)
+app.use('/news', newsRouter)
 app.use('/images', imagesRouter)
 
 // 所有錯誤
